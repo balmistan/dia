@@ -1,0 +1,80 @@
+body{
+    background-color: #fafafa;
+}
+label{ 
+    width:100%;
+    display: block;
+    font: 0.9em Arial,sans-serif;
+    margin-right: 5px;
+    text-align: left;
+    color: #666
+} 
+
+#logout-btn{
+    font-size: 1.2em;
+    padding:10px;
+    position:fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#test-btn{
+    
+}
+
+#upload-btn{
+    margin-top:10px;
+}
+
+#div_radio_btn{
+    margin: 20px 0 20px 0;
+}
+
+#left-div{
+    width: 25%;
+    float:left;
+    margin-bottom: 100px;
+}
+
+#right-div{
+    width: 20%;
+    float:right;
+    margin-left: 20px;
+    margin-bottom: 100px;
+}
+
+#div-preview-table{
+    margin-left: 15%; 
+    margin-right: 20%;
+    overflow:auto;
+    margin-bottom: 100px;
+    border-left: 2px solid #c5c5c5;
+    border-right: 2px solid #c5c5c5;
+}
+
+fieldset{
+    margin: 10px 0 25px;
+    width: 90%;
+}
+
+input[name="otherseparator"]{
+    width: 2em;
+}
+
+
+#preview-table{
+    border-collapse: collapse;
+}
+
+#preview-table th, td{
+    padding:3px;
+}
+
+#preview-table th{
+    border: 2px solid graytext;
+    color: blue;
+}
+#preview-table td{
+    border: 1px dotted black;
+
+}

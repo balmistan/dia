@@ -1,0 +1,22 @@
+
+AddDefaultCharset utf-8
+
+
+
+#redirezione errori su file
+
+php_flag display_startup_errors off
+php_flag display_errors off
+php_flag html_errors off
+
+php_flag log_errors on  
+php_value error_log ../php_error.log 
+
+#protegge il file php_error.log dall' accesso diretto
+<Files php_error.log>  
+Order allow,deny  
+Deny from all  
+Satisfy All  
+</Files>  
+
+
