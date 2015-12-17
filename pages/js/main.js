@@ -91,7 +91,7 @@ $(document).ready(function () {
             }
 
             $("#configuration-table").html(html);
-        }else{
+        } else {
             $("#configuration-table").html("");
         }
     }
@@ -101,7 +101,7 @@ $(document).ready(function () {
         var html = "<select>\n" +
                 "<option value=\"\">&nbsp;</option>";
         for (var i = 0; i < arr_columns_table.length; i++) {
-            html += "<option value=\"" + arr_columns_table[i] + "\">" + arr_columns_table[i] + "</option>\n";
+            html += "<option value=\"" + i + "\">" + arr_columns_table[i] + "</option>\n";
         }
 
         html += "</select>";
@@ -155,19 +155,24 @@ $(document).ready(function () {
      * This function,
      * returns an array where 
      * indexes are the position in csv file and  
-     * values are the names of the columns on database
+     * values are the position of the columns in arr_columns_table. 
+     * arr_columns_table has the list of names of the columns in database.
+     * A copy of this variable is already in $_SESSION and so it is accessible with PHP 
      * @returns associative array
      */
     function sendAssocCsvDb() {
-        var arr = Array();
-
+        var arr = [];
         $("#configuration-table").find("tr").each(function () {
             $(this).find("td:nth-child(3)").each(function () {
+              arr.quadro = $(this).find("select").val();
                 arr.push($(this).find("select").val());
+
             });
 
         });
-        alert(JSON.stringify(arr))
+
+        sendToServer(JSON.stringify(arr), "save_on_db.php");
+        //alert(JSON.stringify(arr))
 
     }
 

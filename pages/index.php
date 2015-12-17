@@ -1,10 +1,10 @@
 <?php
-error_reporting(E_ALL | E_STRICT); // all = 2147483647  
+/*error_reporting(E_ALL | E_STRICT); // all = 2147483647  
 
 ini_set('display_error', 1);
 ini_set('ignore_repeated_errors', 0);
 ini_set('ignore_repeated_source', 0);
-
+*/
 session_start();
 
 include("../class/db.class.php");
@@ -21,11 +21,12 @@ if (isset($post_var["username"])) {
     $_SESSION["password"] = $post_var["password"];
     $_SESSION["port"] = $post_var["port"];
     
-    $db = new db(true);    // true active debug
+    $db = new db(false);    // true = active debug
 
  
     if (!$db->isLogged()) {
-        $err_msg = "Die Anmeldung am MySQL-Server ist fehlgeschlagen";
+        //$err_msg = "Die Anmeldung am MySQL-Server ist fehlgeschlagen";
+        $err_msg = $db->getError();
     } else {
         header("Location: main.php");
     }
@@ -46,7 +47,9 @@ if (isset($post_var["username"])) {
     </head>
 
     <body>
+        
         <form class="box login" action="?" method="post">
+            <div class="error"><?php echo $err_msg; ?></div>
             <fieldset class="boxBody">
                 <label>DB Name</label>
                 <input type="text" name="dbname" />
@@ -59,9 +62,11 @@ if (isset($post_var["username"])) {
                 <label>Passwort</label>
                 <input type="Password" name="password" />
             </fieldset>
+            
             <footer>
-                <span class="error"><?php echo $err_msg; ?></span>
+                
                 <input type="submit" class="btnLogin" value="Ok" />
+                
             </footer>
         </form>
     </body>

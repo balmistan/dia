@@ -9,6 +9,7 @@ class db {
     private $password;
     private $port;
     private $debug;
+    private $error;
 
     public function __construct($debug = false) {
         $this->conn = NULL;
@@ -36,8 +37,9 @@ class db {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             $this->conn = NULL;
+            $this->error = $e->getMessage();
             if ($this->debug) {
-                echo 'ERROR: ' . $e->getMessage();
+                echo 'ERROR: ' . $this->error;
             }
         }
     }
@@ -51,44 +53,86 @@ class db {
     }
 
     public function getTableNames() {
-        
+
         $nameslist = array();
-        
+
         $sql = $this->conn->prepare("SHOW TABLES");
-        $sql->execute(); 
-       
-        while($res=$sql->fetchColumn()){
+        $sql->execute();
+
+        while ($res = $sql->fetchColumn()) {
             array_push($nameslist, $res);
         }
-       
+
         return $nameslist;
     }
-    
+
     /**
      * This method before performing query, check if table name exists. This protects from mysql-Injection.
      * @param type $table_name
      */
-    
-    public function getColumnsName($table_name){
-        
-        if(!in_array($table_name, $this->getTableNames())){
+    public function getColumnsName($table_name) {
+
+        if (!in_array($table_name, $this->getTableNames())) {
             return array();
         }
-        
+
         $columnslist = array();
-       
-        $sql = $this->conn->prepare("SHOW COLUMNS FROM " .$table_name);
-          $sql->execute();   
-         
-        while($res=$sql->fetchColumn()){
+
+        $sql = $this->conn->prepare("SHOW COLUMNS FROM " . $table_name);
+        $sql->execute();
+
+        while ($res = $sql->fetchColumn()) {
             array_push($columnslist, $res);
         }
-     
+
         return $columnslist;
     }
-    
-    
-    
-    
+
+    public function getError() {
+        return $this->error;
+    }
+
+    public function insert($tablename, $arr_columnsname, $config_assoc, $csvarray) {
+        $str_debug = "";
+        $index_full_field_array = array();
+        $str_values = " VALUES(";
+        $query = "INSERT INTO " . $tablename . "(";
+
+        for ($i = 0; $i < count($config_assoc); $i++) {
+            if ($config_assoc[$i] != "") {
+                array_push($index_full_field_array, $i);
+                $str_values .= "?,";
+                $query .= $arr_columnsname[$config_assoc[$i]] . ",";
+            }
+        }
+
+
+        $str_values = substr_replace($str_values, ")", strrpos($str_values, ","));
+
+        $query = substr_replace($query, ")", strrpos($query, ","));
+
+//return $query.$str_values;
+
+        $str_debug .= "\$sql = \$this->conn->prepare(" . $query . $str_values . ");\n";
+
+
+        $row = 1; //stert from row 1. Row 0 are columns name in csv file
+
+        while (isset($csvarray[$row])) {
+
+            for ($index = 0; $index < count($index_full_field_array); $index++) {
+                $str_debug .= "\$sql->bindValue(".($index+1).", ---);\n";
+                        
+            }
+            $str_debug .= "\$sql->execute();\n";
+            $row++;
+        }
+
+
+      
+          return $str_debug;
+
+
+    }
 
 }

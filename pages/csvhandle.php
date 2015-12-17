@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once "../class/csv.class.php";
+
 $charset = "Windows-1252";
 
 $arr_in = json_decode(file_get_contents('php://input'), true);
@@ -27,6 +29,14 @@ switch (stripslashes($arr_in["separator"])) {
 }
 
 
+$csv = new csv("../uploads/" . $arr_in["filename"],   //csv file link
+        $separator,
+        stripslashes($arr_in["enclosure"]),
+                "ISO-8859-1"
+                );
+
+
+/*
 if ($fp = fopen("../uploads/" . $arr_in["filename"], "r")) {
 
     while (!feof($fp)) {
@@ -37,7 +47,7 @@ if ($fp = fopen("../uploads/" . $arr_in["filename"], "r")) {
 
     fclose($fp);
 }
-
+*/
 
 
 
@@ -47,9 +57,9 @@ $_SESSION["enclosure"] = stripslashes($arr_in["enclosure"]);
 
 
 
-echo json_encode(converter($ret));  
+//echo json_encode(converter($ret));  
 
-
+/*
 function converter($array) {
     array_walk_recursive($array, function(&$item, $key) {
 
@@ -59,3 +69,6 @@ function converter($array) {
 
     return $array;
 }
+*/
+
+echo json_encode($csv->getArrCsv());

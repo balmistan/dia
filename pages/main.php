@@ -102,7 +102,7 @@ $arr_table_names = $db->getTableNames();
         </div>
 
        
-        <!-- <button id="test-btn">Test</button>-->  
+         <button id="test-btn">Test</button>
         <button id="logout-btn" onclick="window.location.href = 'logout.php'">Logout</button>
     
     </body>

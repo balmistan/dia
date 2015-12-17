@@ -10,7 +10,7 @@ label{
     color: #666
 } 
 
-#logout-btn{
+#test-btn, #logout-btn{
     font-size: 1.2em;
     padding:10px;
     position:fixed;
@@ -18,8 +18,8 @@ label{
     left: 0;
 }
 
-#test-btn{
-    
+#logout-btn{
+  left:100px !important;
 }
 
 #upload-btn{
