@@ -121,7 +121,7 @@ class db {
         while (isset($csvarray[$row])) {
 
             for ($index = 0; $index < count($index_full_field_array); $index++) {
-                $str_debug .= "\$sql->bindValue(".($index+1).", ---);\n";
+                $str_debug .= "\$sql->bindValue(".($index+1).", ".$csvarray[$row][$index_full_field_array[$index]].");\n";
                         
             }
             $str_debug .= "\$sql->execute();\n";
