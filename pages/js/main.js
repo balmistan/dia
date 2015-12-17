@@ -98,7 +98,7 @@ $(document).ready(function () {
 
 
     function getCodeForSelectboxDb() {
-        var html = "<select>\n" +
+        var html = "<select class=\"db_assoc\">\n" +
                 "<option value=\"\">&nbsp;</option>";
         for (var i = 0; i < arr_columns_table.length; i++) {
             html += "<option value=\"" + i + "\">" + arr_columns_table[i] + "</option>\n";
@@ -143,7 +143,7 @@ $(document).ready(function () {
     //////////////////////////////////
 
 
-    $("#test-btn").click(function () {
+    $("#import-btn").click(function () {
         sendAssocCsvDb()
     })
 
@@ -164,16 +164,37 @@ $(document).ready(function () {
         var arr = [];
         $("#configuration-table").find("tr").each(function () {
             $(this).find("td:nth-child(3)").each(function () {
-              arr.quadro = $(this).find("select").val();
+                arr.quadro = $(this).find("select").val();
                 arr.push($(this).find("select").val());
 
             });
 
         });
-
-        sendToServer(JSON.stringify(arr), "save_on_db.php");
-        //alert(JSON.stringify(arr))
-
+        
+            sendToServer(JSON.stringify(arr), "save_on_db.php");
+           
     }
-
+    
+   ///////  Show/Hide Button Import (START CODE) ///////
+   
+   var num_assoc_csv_db = 0; //It is only useful to know if button "Import" must be displayed.
+   
+   $(document).on('change', '.db_assoc', function() {
+       if($(this).val() !== ""){
+           num_assoc_csv_db++;
+       }else if(num_assoc_csv_db >0){
+           num_assoc_csv_db--;
+       }
+       
+       if(num_assoc_csv_db >0){
+           $("#import-btn").css("visibility", "visible");
+       }else{
+           $("#import-btn").css("visibility", "hidden");
+       }
+   });
+   
+   ///////  Show/Hide Button Import  (END CODE)  ///////
+   
+   
+   
 });

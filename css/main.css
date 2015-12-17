@@ -10,12 +10,16 @@ label{
     color: #666
 } 
 
-#test-btn, #logout-btn{
+#import-btn, #logout-btn{
     font-size: 1.2em;
     padding:10px;
     position:fixed;
     bottom: 0;
     left: 0;
+}
+
+#import-btn{
+    visibility:hidden;
 }
 
 #logout-btn{
