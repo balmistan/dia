@@ -93,6 +93,7 @@ class db {
     }
 
     public function insert($tablename, $arr_columnsname, $config_assoc, $csvarray) {
+        $issue = "Success!";
         $str_debug = "";
         $index_full_field_array = array();
         $str_values = " VALUES(";
@@ -115,24 +116,34 @@ class db {
 
         $str_debug .= "\$sql = \$this->conn->prepare(" . $query . $str_values . ");\n<br />";
 
+        try {
+            
+            $this->conn->beginTransaction();
 
-        $row = 1; //stert from row 1. Row 0 are columns name in csv file
+            $sql = $this->conn->prepare($query . $str_values);
 
-        while (isset($csvarray[$row])) {
+            $row = 1; //stert from row 1. Row 0 are columns name in csv file
 
-            for ($index = 0; $index < count($index_full_field_array); $index++) {
-                $str_debug .= "\$sql->bindValue(".($index+1).", ".$csvarray[$row][$index_full_field_array[$index]].");\n<br />";
-                        
+            while (isset($csvarray[$row])) {
+
+                for ($index = 0; $index < count($index_full_field_array); $index++) {
+                    $str_debug .= "\$sql->bindValue(" . ($index + 1) . ", '" . $csvarray[$row][$index_full_field_array[$index]] . "');\n<br />";
+                    $sql->bindValue(($index + 1), $csvarray[$row][$index_full_field_array[$index]]);
+                }
+                $str_debug .= "\$sql->execute();\n<br />";
+
+                $sql->execute();
+
+                $row++;
             }
-            $str_debug .= "\$sql->execute();\n<br />";
-            $row++;
+                 $this->conn->commit();
+        } catch (PDOException $er) {
+              $this->conn->rollBack();
+            $issue = $er->getMessage();
         }
 
 
-      
-          return $str_debug;
-
-
+        return $issue;
     }
 
 }
