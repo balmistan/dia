@@ -34,7 +34,7 @@ $arr_table_names = $db->getTableNames();
     </head>
 
     <body>
-        
+<div id="debug-div"></div>
         <div id="left-div">
 
 
@@ -54,15 +54,15 @@ $arr_table_names = $db->getTableNames();
                 <legend>Konfigurations csv</legend>
                 <br />
                 <label for="separator">Spaltentrenn:<br />
-                
-                <select name="separator" id="separator">
-                    <option value=";">SEMIKOLON</option>
-                    <option value=",">KOMMA</option>
-                    <option value="TAB">TAB</option>
-                    <option value="space">RAUM</option>
-                    <option value=",">ANDERES</option>
-                </select>
-               
+
+                    <select name="separator" id="separator">
+                        <option value=";">SEMIKOLON</option>
+                        <option value=",">KOMMA</option>
+                        <option value="TAB">TAB</option>
+                        <option value="space">RAUM</option>
+                        <option value=",">ANDERES</option>
+                    </select>
+
                     <input type="text" name="otherseparator" maxlength="1" value ="" /></label>
                 <br/>
                 <label for="enclosure">Kapselung Text:</label>
@@ -98,13 +98,13 @@ $arr_table_names = $db->getTableNames();
 
                 </table>
             </div>
-
+            
         </div>
 
-       
-         <button id="import-btn">Import</button>
+
+        <button id="import-btn">Import</button>
         <button id="logout-btn" onclick="window.location.href = 'logout.php'">Logout</button>
-    
+
     </body>
-    
+
 </html>

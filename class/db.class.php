@@ -113,7 +113,7 @@ class db {
 
 //return $query.$str_values;
 
-        $str_debug .= "\$sql = \$this->conn->prepare(" . $query . $str_values . ");\n";
+        $str_debug .= "\$sql = \$this->conn->prepare(" . $query . $str_values . ");\n<br />";
 
 
         $row = 1; //stert from row 1. Row 0 are columns name in csv file
@@ -121,10 +121,10 @@ class db {
         while (isset($csvarray[$row])) {
 
             for ($index = 0; $index < count($index_full_field_array); $index++) {
-                $str_debug .= "\$sql->bindValue(".($index+1).", ".$csvarray[$row][$index_full_field_array[$index]].");\n";
+                $str_debug .= "\$sql->bindValue(".($index+1).", ".$csvarray[$row][$index_full_field_array[$index]].");\n<br />";
                         
             }
-            $str_debug .= "\$sql->execute();\n";
+            $str_debug .= "\$sql->execute();\n<br />";
             $row++;
         }
 

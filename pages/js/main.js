@@ -171,7 +171,9 @@ $(document).ready(function () {
 
         });
         
-            sendToServer(JSON.stringify(arr), "save_on_db.php");
+          var issue = sendToServer(JSON.stringify(arr), "save_on_db.php");
+          
+          $("#debug-div").html(issue);
            
     }
     
