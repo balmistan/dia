@@ -54,6 +54,7 @@ label{
     margin-bottom: 100px;
     border-left: 2px solid #c5c5c5;
     border-right: 2px solid #c5c5c5;
+    max-height: 400px;
 }
 
 fieldset{

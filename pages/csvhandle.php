@@ -1,7 +1,5 @@
 <?php
 
-ini_set('auto_detect_line_endings', true);
-
 session_start();
 
 require_once "../class/csv.class.php";
@@ -31,46 +29,23 @@ switch (stripslashes($arr_in["separator"])) {
 }
 
 
-$csv = new csv("../uploads/" . $arr_in["filename"],   //csv file link
-        $separator,
-        stripslashes($arr_in["enclosure"]),
-                "ISO-8859-1"
-                );
-
-
-/*
-if ($fp = fopen("../uploads/" . $arr_in["filename"], "r")) {
-
-    while (!feof($fp)) {
-        $ret[] = fgetcsv(
-                $fp, 0, $separator, stripslashes($arr_in["enclosure"])
-        );
-    }
-
-    fclose($fp);
-}
-*/
-
+$csv = new csv("../uploads/" . $arr_in["filename"], //csv file link
+        $separator, stripslashes($arr_in["enclosure"]), "ISO-8859-1"
+);
 
 
 $_SESSION["filename"] = $arr_in["filename"];
 $_SESSION["separator"] = $separator;
 $_SESSION["enclosure"] = stripslashes($arr_in["enclosure"]);
 
-
-
-//echo json_encode(converter($ret));  
-
 /*
-function converter($array) {
-    array_walk_recursive($array, function(&$item, $key) {
-
-        $item = mb_convert_encoding($item, 'ISO-8859-1', 'UTF-8');
-        
-    });
-
-    return $array;
+if (count($csv) == 0) { //csv file is empty
+    $_SESSION["total_num_columns_in_csv"] = 0;
+} else {
+    $_SESSION["total_num_columns_in_csv"] = count($csv[0]);  //row 0 are the title.
 }
 */
+
+//$_SESSION["test"] = $csv->getArrCsv();
 
 echo json_encode($csv->getArrCsv());

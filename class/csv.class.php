@@ -1,64 +1,65 @@
 <?php
 
+ini_set('auto_detect_line_endings', true);
+
 class csv {
-    
+
     private $Filename;
     private $Charset;
     private $Separator;
     private $Enclosure;
     private $Debug;
-    
     private $ArrCSV;
-    
-    
-    public function __construct($filename, $separator, $enclosure, $charset="UTF-8", $debug = false){
+
+    public function __construct($filename, $separator, $enclosure, $charset = "UTF-8", $debug = false) {
         $this->Charset = $charset;
         $this->Debug = $debug;
         $this->Filename = $filename;
         $this->Enclosure = $enclosure;
         $this->Separator = $separator;
         $this->ArrCSV = Array();
-        
+
         $this->setArrCSV();
-        
+
         $this->converter();
     }
-    
-    
-    
-    private function setArrCSV(){
+
+    private function setArrCSV() {
         if ($fp = fopen($this->Filename, "r")) {
 
-    while (!feof($fp)) {
-        $this->ArrCSV[] = fgetcsv(
-                $fp, 0, $this->Separator, $this->Enclosure
-        );
-    }
+            $arr_row = array();
 
-    fclose($fp);
-}
+            while (!feof($fp)) {
 
-    }
-    
-    
-    
-    private function converter() {
-        if($this->Charset != "UTF-8"){
-    array_walk_recursive($this->ArrCSV, function(&$item, $key) {
+                $arr_row = fgetcsv(
+                        $fp, 0, $this->Separator, $this->Enclosure
+                );
+                if (array_filter($arr_row)) {      //ignores empty rows
+                    $this->ArrCSV[] = $arr_row;
+                }
+            }
 
-        $item = mb_convert_encoding($item, $this->Charset, 'UTF-8');
-        
-    });
+            fclose($fp);
         }
-   
+    }
+
+    private function converter() {
+        if ($this->Charset != "UTF-8") {
+            array_walk_recursive($this->ArrCSV, function(&$item, $key) {
+
+                $item = mb_convert_encoding($item, $this->Charset, 'UTF-8');
+            });
+        }
+    }
+
+    public function getArrCsv() {
+        return $this->ArrCSV;
+    }
+
+    private function remove_empty_row() {
+        foreach ($this->ArrCSV as $key => $arr_columns) {
+            
+        }
+    }
+
 }
-    
-public function getArrCsv() {
-    return $this->ArrCSV;
-}
-
-
-    
-}
-
-

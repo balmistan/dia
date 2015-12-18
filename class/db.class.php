@@ -93,7 +93,7 @@ class db {
     }
 
     public function insert($tablename, $arr_columnsname, $config_assoc, $csvarray) {
-        $issue = "Success!";
+
         $str_debug = "";
         $index_full_field_array = array();
         $str_values = " VALUES(";
@@ -112,8 +112,6 @@ class db {
 
         $query = substr_replace($query, ")", strrpos($query, ","));
 
-//return $query.$str_values;
-
         $str_debug .= "\$sql = \$this->conn->prepare(" . $query . $str_values . ");\n<br />";
 
         try {
@@ -123,26 +121,28 @@ class db {
             $sql = $this->conn->prepare($query . $str_values);
 
             $row = 1; //stert from row 1. Row 0 are columns name in csv file
-
             while (isset($csvarray[$row])) {
+                
+                    for ($index = 0; $index < count($index_full_field_array); $index++) {
 
-                for ($index = 0; $index < count($index_full_field_array); $index++) {
-                    $str_debug .= "\$sql->bindValue(" . ($index + 1) . ", '" . $csvarray[$row][$index_full_field_array[$index]] . "');\n<br />";
-                    $sql->bindValue(($index + 1), $csvarray[$row][$index_full_field_array[$index]]);
+                        $str_debug .= "\$sql->bindValue(" . ($index + 1) . ", '" . $csvarray[$row][$index_full_field_array[$index]] . "');\n<br />";
+                        $sql->bindValue(($index + 1), $csvarray[$row][$index_full_field_array[$index]]);
+                    }
+                    $str_debug .= "\$sql->execute();\n<br />";
+
+                    $sql->execute();
+
+                    $row++;
                 }
-                $str_debug .= "\$sql->execute();\n<br />";
-
-                $sql->execute();
-
-                $row++;
-            }
+            
             $this->conn->commit();
+            $issue = "Success!";
         } catch (PDOException $er) {
-            $this->conn->rollBack();
             $issue = $er->getMessage();
+            $this->conn->rollBack();
         }
 
-        return $issue;
+        return count($csvarray);
     }
 
 }
