@@ -1,5 +1,7 @@
 <?php
 
+ini_set('auto_detect_line_endings', true);
+
 session_start();
 
 require_once "../class/csv.class.php";

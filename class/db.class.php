@@ -117,7 +117,7 @@ class db {
         $str_debug .= "\$sql = \$this->conn->prepare(" . $query . $str_values . ");\n<br />";
 
         try {
-            
+
             $this->conn->beginTransaction();
 
             $sql = $this->conn->prepare($query . $str_values);
@@ -136,12 +136,11 @@ class db {
 
                 $row++;
             }
-                 $this->conn->commit();
+            $this->conn->commit();
         } catch (PDOException $er) {
-              $this->conn->rollBack();
+            $this->conn->rollBack();
             $issue = $er->getMessage();
         }
-
 
         return $issue;
     }
