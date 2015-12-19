@@ -142,7 +142,7 @@ class db {
             $this->conn->rollBack();
         }
 
-        return count($csvarray);
+        return $issue;
     }
 
 }

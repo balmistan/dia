@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+   
     var csv_file_name = ""; //name csv selected. Init on upload success.
 
     var arr_columns_table = Array(); //will to hold the names of columns in database table
@@ -10,6 +10,7 @@ $(document).ready(function () {
     $("#select-mysql-table").change(function () {
         setColumnsNameDb(); //performs an Ajax request to get the names of the columns in the database. They will be saved in arr_columns_table.
         createTable();
+        showhidebtn();  //show or hide button "Import"
     });
     $('#upload-btn').on('click', function () {
         var fd = new FormData(document.getElementById("upload-form"));
@@ -136,6 +137,7 @@ $(document).ready(function () {
 
         createTable();   //creates and displays tables on right side (if it has enough information)
 
+        showhidebtn();   //show or hide button "Import"
     }
 
 
@@ -173,27 +175,37 @@ $(document).ready(function () {
         
           var issue = sendToServer(JSON.stringify(arr), "save_on_db.php");
           
-          $("#debug-div").html(issue);
+          //$("#debug-div").html(issue);
+          
+          alert(issue)
            
     }
     
    ///////  Show/Hide Button Import (START CODE) ///////
    
-   var num_assoc_csv_db = 0; //It is only useful to know if button "Import" must be displayed.
+   
    
    $(document).on('change', '.db_assoc', function() {
-       if($(this).val() !== ""){
-           num_assoc_csv_db++;
-       }else if(num_assoc_csv_db >0){
-           num_assoc_csv_db--;
-       }
+       showhidebtn();
+   });
+   
+   
+   function showhidebtn(){
+        var show = false;
+        
+       $(".db_assoc").each (function(){
+           if($(this).val()!=""){
+               show = true;
+               return 0;  //break
+           }
+       });
        
-       if(num_assoc_csv_db >0){
+       if(show){
            $("#import-btn").css("visibility", "visible");
        }else{
            $("#import-btn").css("visibility", "hidden");
        }
-   });
+   }
    
    ///////  Show/Hide Button Import  (END CODE)  ///////
    
