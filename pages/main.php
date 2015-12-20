@@ -34,7 +34,7 @@ $arr_table_names = $db->getTableNames();
     </head>
 
     <body>
-<div id="debug-div"></div>
+        <div id="debug-div"></div>
         <div id="left-div">
 
 
@@ -57,13 +57,16 @@ $arr_table_names = $db->getTableNames();
 
                     <select name="separator" id="separator">
                         <option value=";">SEMIKOLON</option>
-                        <option value=",">KOMMA</option>
+                        <option value="comma">KOMMA</option>
+                        <option value="dot">PUNKT</option>
+                        <option value="semicolon">SEMIKOLON</option>
+                        <option value="colon">DOPPELPUNKT</option>
                         <option value="TAB">TAB</option>
                         <option value="space">RAUM</option>
-                        <option value=",">ANDERES</option>
+                        <!--<option value="other">ANDERES</option>-->
                     </select>
 
-                    <input type="text" name="otherseparator" maxlength="1" value ="" /></label>
+                  <!--  <input type="text" name="otherseparator" maxlength="1" value ="" /></label> -->
                 <br/>
                 <label for="enclosure">Kapselung Text:</label>
                 <select name="enclosure" id="enclosure">
@@ -92,7 +95,7 @@ $arr_table_names = $db->getTableNames();
         </div>
 
         <div id="central-div">
-
+<img src="../css/ajax-loader.gif" alt="BITTE WAIT" id="wait-icon" />
             <div id="div-preview-table">
                 <table id="preview-table">
 

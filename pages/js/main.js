@@ -113,6 +113,7 @@ $(document).ready(function () {
 
 
     function sendToServer(datatosend, linktosend) {
+        $("#wait-icon").css("visibility","visible");
         var ret = Array();
         $.ajax({
             url: linktosend,
@@ -126,6 +127,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false
         });
+        $("#wait-icon").css("visibility","hidden");
         return ret;
     }
 

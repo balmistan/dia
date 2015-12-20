@@ -93,3 +93,10 @@ input[name="otherseparator"]{
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+#wait-icon{
+    left: 50%;
+    top:50%;
+    visibility: hidden;
+    position: fixed;
+}

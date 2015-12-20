@@ -20,6 +20,18 @@ switch (stripslashes($arr_in["separator"])) {
     case "space":
         $separator = " ";
         break;
+    case "comma":
+        $separator = ",";
+        break;
+    case "dot":
+        $separator = ".";
+        break;
+    case "colon":
+        $separator = ":";
+        break;
+    case "semicolon":
+        $separator = ";";
+        break;
     case "other":
         $separator = stripslashes($arr_in["otherseparator"]);
         break;
