@@ -49,6 +49,7 @@ $csv = new csv("../uploads/" . $arr_in["filename"], //csv file link
 $_SESSION["filename"] = $arr_in["filename"];
 $_SESSION["separator"] = $separator;
 $_SESSION["enclosure"] = stripslashes($arr_in["enclosure"]);
+$_SESSION["csvdata"] = $retstr = json_encode($csv->getArrCsv());
 
 /*
 if (count($csv) == 0) { //csv file is empty
@@ -60,4 +61,4 @@ if (count($csv) == 0) { //csv file is empty
 
 //$_SESSION["test"] = $csv->getArrCsv();
 
-echo json_encode($csv->getArrCsv());
+echo $retstr;

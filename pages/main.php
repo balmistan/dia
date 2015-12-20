@@ -34,7 +34,7 @@ $arr_table_names = $db->getTableNames();
     </head>
 
     <body>
-        <div id="debug-div"></div>
+        <!--<div id="debug-div"></div>-->
         <div id="left-div">
 
 
@@ -95,7 +95,7 @@ $arr_table_names = $db->getTableNames();
         </div>
 
         <div id="central-div">
-<img src="../css/ajax-loader.gif" alt="BITTE WAIT" id="wait-icon" />
+<img src="../css/ajax-loader.png" alt="BITTE WAIT" id="wait-icon" />
             <div id="div-preview-table">
                 <table id="preview-table">
 

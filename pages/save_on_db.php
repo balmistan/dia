@@ -5,8 +5,11 @@ session_start();
 require_once "../class/db.class.php";
 require_once "../class/csv.class.php";
 
+
 $arr_in = json_decode(file_get_contents('php://input'), true);
 
+
+if(!isset($_SESSION["csvdata"])){
 
 $csv = new csv("../uploads/" . $_SESSION["filename"],   //csv file link
         $_SESSION["separator"],
@@ -15,7 +18,9 @@ $csv = new csv("../uploads/" . $_SESSION["filename"],   //csv file link
                 );
 
 $arr_csv = $csv->getArrCsv();
-
+}else{
+    $arr_csv = json_decode($_SESSION["csvdata"]);
+}
 
 $db = new db();
 
