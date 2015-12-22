@@ -45,9 +45,9 @@ class csv {
 
     private function converter() {
         if ($this->Charset != "UTF-8") {
-            array_walk_recursive($this->ArrCSV, function(&$item, $key) {
-
-                $item = mb_convert_encoding($item, $this->Charset, 'UTF-8');
+            array_walk_recursive($this->ArrCSV, function(&$item) {
+                //$item = mb_convert_encoding($item, "ISO-8859-1", 'UTF-8');
+                $item = iconv($this->Charset, 'UTF-8', $item);
             });
         }
     }

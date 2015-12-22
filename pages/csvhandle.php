@@ -4,7 +4,8 @@ session_start();
 
 require_once "../class/csv.class.php";
 
-$charset = "Windows-1252";
+$charset = "ISO-8859-1";
+
 
 $arr_in = json_decode(file_get_contents('php://input'), true);
 
@@ -42,7 +43,7 @@ switch (stripslashes($arr_in["separator"])) {
 
 
 $csv = new csv("../uploads/" . $arr_in["filename"], //csv file link
-        $separator, stripslashes($arr_in["enclosure"]), "ISO-8859-1"
+        $separator, stripslashes($arr_in["enclosure"]), $charset
 );
 
 
