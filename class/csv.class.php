@@ -29,11 +29,8 @@ class csv {
 
             $arr_row = array();
 
-            while (!feof($fp)) {
+            while ($arr_row = fgetcsv($fp, 0, $this->Separator, $this->Enclosure)) {
 
-                $arr_row = fgetcsv(
-                        $fp, 0, $this->Separator, $this->Enclosure
-                );
                 if (array_filter($arr_row)) {      //ignores empty rows
                     $this->ArrCSV[] = $arr_row;
                 }
